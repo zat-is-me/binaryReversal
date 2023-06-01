@@ -1,50 +1,60 @@
-//Author Tatek Ahmed
+/**
+ * @author tatek on 6/1/2023
+ */
 public class BinaryReversal {
-    public static void main(String[] args) {
-        String decimal = String.valueOf (47);
-        System.out.println (binaryReversal (decimal));                              // Output
-    }
-    private static String binaryReversal(String str) {
+    public static String binaryReversal(String str) {
         double decimal = 0;
-        Integer bit;
+        Integer remander;
         Integer originalDecimal = Integer.parseInt (str);
         Integer bitPadding = Integer.parseInt (str);
-        StringBuffer originalBinary = new StringBuffer ();
+        StringBuffer binary = new StringBuffer ();
+        StringBuffer paddedBinary = new StringBuffer ();
         String highestPower;
 
-        //Decimal to binary
+        //collecting binary values
         while (originalDecimal != 0){
-            bit = originalDecimal%2;
+            remander = originalDecimal%2;
             originalDecimal = originalDecimal/2;
-            originalBinary.append (bit);
+            binary.append (remander);
         }
+        //At this stage the decimal is changed to binary
+        binary.reverse();
 
-        //padding 8 bites
+        //padding the binary in to 8 bites
         if (bitPadding <= 255){
-            for (int i = originalBinary.length () ; i < 8; i++) {
-                originalBinary.append (0);
+            for (int i = binary.length () ; i < 8; i++) {
+                paddedBinary.append (0);
             }
         }
+
         //padding 16 bites
         if (bitPadding >255 && bitPadding <= 65535){
-            for (int i = originalBinary.length () ; i < 16; i++) {
-                originalBinary.append (0);
+            for (int i = binary.length () ; i < 16; i++) {
+                paddedBinary.append (0);
             }
         }
         // for future expansion
         //padding 32 bites
         //padding 64 bites
 
+        paddedBinary.append(binary);
+        System.out.println("The binary form of: "+str+" in "+paddedBinary.length()+" is: "+paddedBinary);
+
+        //The padded revers binary will be
+        System.out.print("The reverse binary of: "+paddedBinary+" is: ");
+        System.out.println(paddedBinary.reverse());
+
         //Binary to decimal
-        highestPower = originalBinary.toString ();//inorder to the highest power
+        highestPower = paddedBinary.toString ();//in order to the highest power
         for (int i = 0; i < highestPower.length (); i++) {
-            bit = Integer.parseInt (highestPower.substring (i,i+1));
-            decimal += ((bit * Math.pow (2, ((highestPower.length ()-1) - i))));
+            remander = Integer.parseInt (highestPower.substring (i,i+1));
+            decimal += ((remander * Math.pow (2, ((highestPower.length ()-1) - i))));
         }
 
         int value = (int)decimal;//will change 244.0 -> 244
-        String reverseDecimal = String.valueOf (value);//changing to fit return compatibility
+        String reversedDecimal = String.valueOf (value);//changing to fit return compatibility
 
-        return reverseDecimal;
+        System.out.print("The decimal form of binary: "+paddedBinary+" is: ");
+        return reversedDecimal;
     }
 }
