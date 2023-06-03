@@ -55,8 +55,8 @@ public class BinaryReversal {
         int value = (int)decimal;//will change 244.0 -> 244
 
         String reversedDecimal = String.valueOf (value);//changing to fit return compatibility
-
         StringBuffer stringBuffer = new StringBuffer(reversedDecimal);
+
         return stringBuffer;
     }
 
